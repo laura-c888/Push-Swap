@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchehbi <lchehbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchehbi <lchehbi@learner.42.tech>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 19:00:00 by lchehbi           #+#    #+#             */
-/*   Updated: 2026/06/20 19:00:00 by lchehbi          ###   ########.fr       */
+/*   Updated: 2026/06/20 20:07:45 by lchehbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,36 +46,36 @@ void	assert_stack_values(t_node *stack, int expected[], int count)
 	assert(stack == NULL);
 }
 
-void	test_parsing(void)
+static void	check_parse_result(int argc, char *argv[],
+						int expected_size, int expected_first)
 {
-	char	*argv[4];
-	char	*argv2[2];
-	char	*argv3[4];
 	t_node	*stack;
 
-	argv[0] = "push_swap";
-	argv[1] = "3";
-	argv[2] = "2";
-	argv[3] = "1";
+	stack = parse_arguments(argc, argv);
+	assert(stack_size(stack) == expected_size);
+	assert(stack->value == expected_first);
+	free_stack(stack);
+}
+
+void	test_parsing(void)
+{
+	char	*argv1[4];
+	char	*argv2[2];
+	char	*argv3[4];
+
+	argv1[0] = "push_swap";
+	argv1[1] = "3";
+	argv1[2] = "2";
+	argv1[3] = "1";
 	argv2[0] = "push_swap";
 	argv2[1] = "3 2 1";
 	argv3[0] = "push_swap";
 	argv3[1] = "5 4";
 	argv3[2] = "3";
 	argv3[3] = "2 1";
-	stack = parse_arguments(4, argv);
-	assert(stack_size(stack) == 3);
-	assert(stack->value == 3);
-	assert(stack->next->value == 2);
-	free_stack(stack);
-	stack = parse_arguments(2, argv2);
-	assert(stack_size(stack) == 3);
-	assert(stack->value == 3);
-	free_stack(stack);
-	stack = parse_arguments(4, argv3);
-	assert(stack_size(stack) == 5);
-	assert(stack->value == 5);
-	free_stack(stack);
+	check_parse_result(4, argv1, 3, 3);
+	check_parse_result(2, argv2, 3, 3);
+	check_parse_result(4, argv3, 5, 5);
 }
 
 void	test_swap_and_rotate(void)

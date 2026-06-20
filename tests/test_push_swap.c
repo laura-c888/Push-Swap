@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_push_swap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchehbi <lchehbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchehbi <lchehbi@learner.42.tech>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 19:00:00 by lchehbi           #+#    #+#             */
-/*   Updated: 2026/06/20 19:00:00 by lchehbi          ###   ########.fr       */
+/*   Updated: 2026/06/20 20:06:40 by lchehbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ static void	test_sort_small(void)
 	free_stack(stacks.a);
 }
 
-static void	test_sort_medium(void)
+static void	set_medium_values(int values[10], int expected[10])
 {
-	int			values[10];
-	int			expected[10];
-	t_node		*stack;
-	t_stacks	stacks;
+	int			i;
 
+	i = 0;
 	values[0] = 10;
 	values[1] = 5;
 	values[2] = 2;
@@ -90,6 +88,16 @@ static void	test_sort_medium(void)
 	expected[7] = 8;
 	expected[8] = 9;
 	expected[9] = 10;
+}
+
+static void	test_sort_medium(void)
+{
+	int			values[10];
+	int			expected[10];
+	t_node		*stack;
+	t_stacks	stacks;
+
+	set_medium_values(values, expected);
 	stack = build_stack(values, 10);
 	stacks.a = stack;
 	stacks.b = NULL;
